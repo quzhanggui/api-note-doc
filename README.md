@@ -51,7 +51,7 @@ $ php composer.phar update
 <?php 
 /**
  * @author lxw
- * @group(name="test", description="test")
+ * @group(name="test", description="test", project="project")
  */
 
 class Doc {

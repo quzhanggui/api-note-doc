@@ -196,8 +196,8 @@ category: {{project}}
 		$description = $comment[$this->rule['description']][0];
 		$method = isset($comment[$this->rule['method']][0]) ? $comment[$this->rule['method']][0] : 'get';
 		$notice = isset($comment[$this->rule['notice']]) ? $comment[$this->rule['notice']][0] : '';
-		$example_str = isset($comment[$this->rule['example']]) ? $comment[$this->rule['example']][0]['data'] : '';
-		$success_str = isset($comment[$this->rule['success']]) ? $comment[$this->rule['success']][0]['data'] : '';
+		$example_str = isset($comment[$this->rule['example']]) ? $comment[$this->rule['example']][0]['value'] : '';
+		$success_str = isset($comment[$this->rule['success']]) ? $comment[$this->rule['success']][0]['value'] : '';
 		$subpage = strtr($templates['subpage'], [
 		    '{{api_title}}' => $group[0]['title'],
 		    '{{project}}' => $group[0]['project'],
@@ -344,7 +344,7 @@ category: {{project}}
 		foreach ($className->getMethods() as $object) {
 			if($object->name == 'get_instance' || $object->name == $className->getConstructor()->name) continue;
 			$method = new \ReflectionMethod($object->class, $object->name);
-			$this->annotationCache[strtolower($object->class)]['methods'][$object->name] = $this->getMethodAnnotation($method);
+			$this->annotationCache[($object->class)]['methods'][$object->name] = $this->getMethodAnnotation($method);
 		}
 		return $this->annotationCache;
 	}
