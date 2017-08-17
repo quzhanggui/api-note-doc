@@ -12,6 +12,9 @@ $config['settings'] = [
     'vender_path'     => '/vender/',
  	'template_ext'    => '.md',
  	'template'	      => 'default',
+ 	'api_file_name'	      => '',
+ 	'api_header'	      => '',
+ 	'api_footer'	      => '',
 ];
 
 /**

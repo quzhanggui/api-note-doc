@@ -61,6 +61,13 @@ class ApiDocBase{
 	private $template_path = '/template';
 	
 	/**
+	 * delete_file
+	 *
+	 * @var boolean
+	 */
+	private $delete_file = false;
+	
+	/**
 	 * Create a new apidoc instance and Initialization parameters.
 	 */
 	function __construct()
@@ -97,7 +104,18 @@ class ApiDocBase{
 	{
 	    $this->listdirs($this->config['build_path']);
 	    $this->getAllAnnotations();
-	    return $this->generateTemplate();
+	    
+	    return $this->generateTemplate();;
+	}
+	
+	protected function addHeader($sub_file)
+	{
+		$this->saveTemplate($sub_file, $this->config['api_header'].PHP_EOL);
+	}
+	
+	protected function addFooter($sub_file)
+	{
+		$this->saveTemplate($sub_file, PHP_EOL.$this->config['api_footer']);
 	}
 	
     /**
@@ -108,25 +126,52 @@ class ApiDocBase{
 	protected function generateTemplate()
 	{
 		$this->output = '';
+		$sub_file = $this->getApiFile();
+		$this->addHeader($sub_file);
+		$index1 = 1;
 		foreach ($this->data as $group => $class) {
 			foreach ($class as $className => $object) {
+				$index2 = 1;
 				$this->class = $className;
 				if(!is_dir($this->config['vender_path'])) mkdir($this->config['vender_path']);
-				$sub_file = $this->config['vender_path'] . "$className{$this->config['template_ext']}";
-				if (file_exists($sub_file) == true) {
-				    unlink($sub_file);
-				}
+				$sub_file = $this->getApiFile();
+				$this->saveTemplateHeader($sub_file,$object['comment']['comment']['group'],$index1);
 				//if (!is_dir($this->config['vender_path'] . $className)){} mkdir($this->config['vender_path'] . $className);
 				foreach ($object['methods'] as $method => $annotion) {
 					$this->method = $method;
-					$sub_data = $this->generateItemPage($sub_file, $annotion, $object['comment']['comment']['group']);
+					$sub_data = $this->generateItemPage($sub_file, $annotion, $object['comment']['comment']['group'],$index1.'.'.$index2);
 					$this->saveTemplate($sub_file, $sub_data);
+					$index2++;
 				}
+				$index1++;
 			}
 		}
+		$this->addFooter($sub_file);
 		return true;
 	}
 
+	protected function saveTemplateHeader($sub_file,$group, $index)
+	{
+		$sub_data = PHP_EOL.'##'. $index.'.'.$group[0]['name'].PHP_EOL;
+		$this->saveTemplate($sub_file, $sub_data);
+	}
+
+	protected function getApiFile()
+	{
+		if(isset($this->config['api_file_name']) && !empty($this->config['api_file_name'])){//生成指定的文件名文档
+			$sub_file =  $this->config['vender_path'] . $this->config['api_file_name'].$this->config['template_ext'];
+			if(!$this->delete_file && file_exists($sub_file) == true) unlink($sub_file);
+			$this->delete_file = true;
+		}else{//按控制分别生成文档
+			$sub_file = $this->config['vender_path'] . "$className{$this->config['template_ext']}";
+			if (file_exists($sub_file) == true) {
+			    unlink($sub_file);
+			}	
+		}
+		
+		return $sub_file;
+	}
+	
 	/**
 	 * Based on template analysis data.
 	 *
@@ -159,7 +204,7 @@ class ApiDocBase{
 	 *
 	 * @return string $subpage
 	 */
-	protected function generateItemPage($sub_file, $annotion, $group)
+	protected function generateItemPage($sub_file, $annotion, $group, $index)
 	{
 		$templates = $this->getSubPageTemplate();
 		if(($sub_file)){
@@ -199,17 +244,19 @@ category: {{project}}
 		$example_str = isset($comment[$this->rule['example']]) ? $comment[$this->rule['example']][0]['value'] : '';
 		$success_str = isset($comment[$this->rule['success']]) ? $comment[$this->rule['success']][0]['value'] : '';
 		$subpage = strtr($templates['subpage'], [
+			'{{index}}' => $index,
 		    '{{api_title}}' => $group[0]['name'],
-		    '{{project}}' => $group[0]['project'],
+		    '{{api_description}}' => $group[0]['description'],
 			'{{site_url}}' => $siteurl,
 			'{{description}}' => $description,
 			'{{request_method}}' => $method,
 			'{{notice}}' => $notice,
 			'{{request_format}}' => $this->getOutputParams($templates['request_format'], $params),
 			'{{return_format}}' => $this->getOutputParams($templates['return_format'], $return),
-			'{{request_example}}' => $this->jsonFormatItem($example_str),
-			'{{return_data}}' => $this->jsonFormatItem($success_str),
+			'{{request_example}}' => ($example_str),
+			'{{return_data}}' => ($success_str),
 		]);
+
 		return $subpage;
 	}
 	
