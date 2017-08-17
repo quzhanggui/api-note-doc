@@ -162,7 +162,7 @@ class ApiDocBase{
 	protected function generateItemPage($sub_file, $annotion, $group)
 	{
 		$templates = $this->getSubPageTemplate();
-		if(filesize($sub_file)){
+		if(($sub_file)){
 		    $templates = str_replace('---
 title: {{api_title}}
 category: {{project}}
@@ -199,7 +199,7 @@ category: {{project}}
 		$example_str = isset($comment[$this->rule['example']]) ? $comment[$this->rule['example']][0]['value'] : '';
 		$success_str = isset($comment[$this->rule['success']]) ? $comment[$this->rule['success']][0]['value'] : '';
 		$subpage = strtr($templates['subpage'], [
-		    '{{api_title}}' => $group[0]['title'],
+		    '{{api_title}}' => $group[0]['name'],
 		    '{{project}}' => $group[0]['project'],
 			'{{site_url}}' => $siteurl,
 			'{{description}}' => $description,
@@ -588,6 +588,7 @@ category: {{project}}
 	
 	private function json_foreach($success_obj, $key_aray = '')
 	{
+		$success = '';
 	    foreach($success_obj as $key => $item){
 	        if(is_array($item)){
 	            $success .= "$key :{" . "\n\t";
