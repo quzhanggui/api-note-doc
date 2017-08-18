@@ -28,6 +28,7 @@ $config['settings'] = [
  * @param success
  */
 $config['rule'] = [
+    'author'   => 'ApiAuthor',
     'description'   => 'ApiDescription',
     'siteurl'       => 'ApiUrl',
     'params'        => 'ApiParams',

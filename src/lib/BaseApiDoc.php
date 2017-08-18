@@ -245,6 +245,7 @@ category: {{project}}
 		$success_str = isset($comment[$this->rule['success']]) ? $comment[$this->rule['success']][0]['value'] : '';
 		$subpage = strtr($templates['subpage'], [
 			'{{index}}' => $index,
+			'{{author}}' => isset($comment[$this->rule['author']][0]) ? $comment[$this->rule['author']][0] : '',
 		    '{{api_title}}' => $group[0]['name'],
 		    '{{api_description}}' => $group[0]['description'],
 			'{{site_url}}' => $siteurl,

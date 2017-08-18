@@ -11,6 +11,7 @@ class AaTestController {
     }
 
     /**
+     * @ApiAuthor(quzhanggui)
      * @ApiDescription(这是接口test1的描述)
      * @ApiMethod(post)
      * @ApiUrl(/hhhh/test1)

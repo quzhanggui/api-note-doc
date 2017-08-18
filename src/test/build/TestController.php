@@ -11,6 +11,7 @@ class TestController {
     }
 
     /**
+     * @ApiAuthor(quzhanggui)
      * @ApiDescription(这是接口test2的描述)
      * @ApiMethod(post)
      * @ApiUrl(/doc/test2)
@@ -29,6 +30,7 @@ class TestController {
     }
 
     /**
+     * @ApiAuthor(quzhanggui)
      * @ApiDescription(这是接口test3的描述)
      * @ApiMethod(post)
      * @ApiUrl(/doc/test3)

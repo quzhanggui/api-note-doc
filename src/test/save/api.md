@@ -6,89 +6,8 @@
 
 ##1.测试控制器
 
-
-----------
-### 1.1 这是接口test1的描述（/hhhh/test1）
-
-| url        | 请求方式   | 
-| --------   | -----:  | 
-| /hhhh/test1     | post |  
-
-入参
-| 字段     | 是否必填   |   类型     | 说明                       |
-|:---------|:----|:-----------|:-----------------------------|
-|id|true|integer|User id|
-|sort|false|enum[asc,desc]|User data|
-
-
-入参实例：{'username':'lxw','password':'123456'}
-
-出参
-| 字段               | 类型  | 说明                  |
-|:----------|:-------|:-----------------------|
-|id|integer|User id|
-|sort|enum[asc,desc]|sort data|
-|page|integer|data of page|
-|count|integer|data of page|
-
-
-出参实例：{'firstname' : 'lxw', 'lastname'  : 'lxlxw', 'lastLogin' : '2016-11-11'}
 ##2.test另一个测试控制器
 
-
-----------
-### 2.1 这是接口test2的描述（/doc/test2）
-
-| url        | 请求方式   | 
-| --------   | -----:  | 
-| /doc/test2     | post |  
-
-入参
-| 字段     | 是否必填   |   类型     | 说明                       |
-|:---------|:----|:-----------|:-----------------------------|
-|id|true|integer|User id|
-|sort|false|enum[asc,desc]|User data|
-
-
-入参实例：{'username':'lxw','password':'123456'}
-
-出参
-| 字段               | 类型  | 说明                  |
-|:----------|:-------|:-----------------------|
-|id|integer|User id|
-|sort|enum[asc,desc]|sort data|
-|page|integer|data of page|
-|count|integer|data of page|
-
-
-出参实例：{'firstname' : 'lxw', 'lastname'  : 'lxlxw', 'lastLogin' : '2016-11-11'}
-
-----------
-### 2.2 这是接口test3的描述（/doc/test3）
-
-| url        | 请求方式   | 
-| --------   | -----:  | 
-| /doc/test3     | post |  
-
-入参
-| 字段     | 是否必填   |   类型     | 说明                       |
-|:---------|:----|:-----------|:-----------------------------|
-|id|true|integer|User id|
-|sort|false|enum[asc,desc]|User data|
-
-
-入参实例：{'username':'lxw','password':'123456'}
-
-出参
-| 字段               | 类型  | 说明                  |
-|:----------|:-------|:-----------------------|
-|id|integer|User id|
-|sort|enum[asc,desc]|sort data|
-|page|integer|data of page|
-|count|integer|data of page|
-
-
-出参实例：{'firstname' : 'lxw', 'lastname'  : 'lxlxw', 'lastLogin' : '2016-11-11'}
 
 ##附录
 

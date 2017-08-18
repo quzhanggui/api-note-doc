@@ -1,7 +1,7 @@
 
 
 ----------
-### {{index}} {{description}}（{{site_url}}）
+### {{index}} {{description}} 作者：{{author}}（{{site_url}}@{{request_method}}）
 
 | url        | 请求方式   | 
 | --------   | -----:  | 
